@@ -11,11 +11,18 @@
 
 int writedecimal(int n)
 {
-	int i;
+	int i, tmp, n2;
+	long int d = 10000000000;
 	char *s;
 
-	for (i = 0; i < n; i++)
-		s[i] = n;
-	write(1, s, 1);
+	n2 = n;
+	for (i = 0; i < 10; i++)
+	{
+		tmp = n2;
+		n2 = n2 % d;
+		s[i] = '0' + (tmp - n2) / d;
+		d = d / 10;
+	}
+	write(1, s, 10;
 	return (i);
 }
