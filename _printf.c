@@ -24,12 +24,9 @@ int _printf(const char *format, ...)
 					charCounter += writeChar(va_arg(printfArguments, int));
 				else if (type == 666)
 					charCounter += writeString(va_arg(printfArguments, char *));
-				/*
-				else if (type == 777)
-					charCounter += putVariable(format[i], va_arg(printfArguments, int));
 				else
-					charCounter += putVariable(format[i], va_arg(printfArguments, int));
-				*/
+					charCounter += writedecimal(va_arg(printfArguments, int));
+				
 			}
 			else
 				charCounter += writePercent(format[i]);
@@ -44,6 +41,7 @@ int _printf(const char *format, ...)
 		}
 		i++;
 	}
+	va_end(printfArguments);
 	free(content);
 	return (charCounter);
 }

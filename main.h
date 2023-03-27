@@ -11,5 +11,7 @@ int writeString(char *string);
 int writePercent(char c);
 int detectType(char c);
 int writeChar(char c);
+int writedecimal(int n);
+int printInteger(int num);
 
 #endif /* MAIN_H */
