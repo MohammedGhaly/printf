@@ -7,62 +7,43 @@
  */
 int _printf(const char *format, ...)
 {
-	va_list prntPtr;
-	int i, isSpecifier, charCounter;
+	va_list printfArguments;
+	int i, isSpecifier, charCounter, type;
 	char *content = malloc(2);
 
-	va_start(prntPtr, format);
-	content[1] = '\0';
+	va_start(printfArguments, format);
 	i = isSpecifier = charCounter = 0;
-
 	while (format[i])
 	{
 		if (isSpecifier)
 		{
-			switch (format[i])
+			type = detectType(format[i]);
+			if(type)
 			{
-				case 'c':
-					content[0] = va_arg(prntPtr, int);
-					write(1, content, 1);
-					charCounter++;
-					i++;
-					isSpecifier = 0;
-					continue;
-					break;
-
-				case 'd':
-					/* code */
-					break;
-
-				case 'i':
-					/* code */
-					break;
-
-				case 's':
-					charCounter += writeString(va_arg(prntPtr, char *));
-					i++;
-					isSpecifier = 0;
-					continue;
-					break;
-
-				default:
-					break;
+				if (type == 555)
+					charCounter += writeChar(va_arg(printfArguments, int));
+				else if (type == 666)
+					charCounter += writeString(va_arg(printfArguments, char *));
+				/*
+				else if (type == 777)
+					charCounter += putVariable(format[i], va_arg(printfArguments, int));
+				else
+					charCounter += putVariable(format[i], va_arg(printfArguments, int));
+				*/
 			}
-		}
-
-		if (format[i] == '%')
-		{
+			else
+				charCounter += writePercent(format[i]);
+			isSpecifier = 0;
+		} else if (format[i] == '%')
 			isSpecifier = 1;
-			i++;
-			continue;
+		else
+		{
+			content[0] = format[i];
+			write(1, content, 1);
+			charCounter++;
 		}
-
-		content[0] = format[i];
-		write(1, content, 1);
-		charCounter++;
 		i++;
 	}
 	free(content);
-	printf("\ncharCounter = %d", charCounter);
 	return (charCounter);
 }
