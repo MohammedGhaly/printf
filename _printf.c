@@ -18,7 +18,7 @@ int _printf(const char *format, ...)
 		if (isSpecifier)
 		{
 			type = detectType(format[i]);
-			if(type)
+			if (type)
 			{
 				if (type == 555)
 					charCounter += writeChar(va_arg(printfArguments, int));
@@ -26,7 +26,6 @@ int _printf(const char *format, ...)
 					charCounter += writeString(va_arg(printfArguments, char *));
 				else
 					charCounter += writedecimal(va_arg(printfArguments, int));
-				
 			}
 			else
 				charCounter += writePercent(format[i]);
