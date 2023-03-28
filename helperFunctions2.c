@@ -68,7 +68,7 @@ int printInteger(int num)
 		num /= 10;
 	}
 
-	write(stdout, buffer, size);
+	write(1, buffer, size);
 
 	free(buffer);
 	return (size);
