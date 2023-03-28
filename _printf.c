@@ -35,7 +35,7 @@ int _printf(const char *format, ...)
 		else
 		{
 			content[0] = format[i];
-			write(1, content, 1);
+			write(stdout, content, 1);
 			charCounter++;
 		}
 		i++;

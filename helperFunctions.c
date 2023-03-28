@@ -19,7 +19,7 @@ int writeString(char *string)
 	while (string[strLen])
 		strLen++;
 
-	write(1, string, strLen);
+	write(stdout, string, strLen);
 	return (strLen);
 }
 
@@ -34,7 +34,7 @@ int writeChar(char c)
 
 	character = malloc(1);
 	character[0] = c;
-	write(1, character, 1);
+	write(stdout, character, 1);
 	free(character);
 	return (1);
 }
@@ -51,14 +51,14 @@ int writePercent(char c)
 	percent[0] = '%';
 	if (c == '%')
 	{
-		(write(1, percent, 1));
+		(write(stdout, percent, 1));
 		free(percent);
 		return (1);
 	}
 	else
 	{
 		percent[1] = c;
-		(write(1, percent, 2));
+		(write(stdout, percent, 2));
 		free(percent);
 		return (2);
 	}
