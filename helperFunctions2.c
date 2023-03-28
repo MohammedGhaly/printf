@@ -22,13 +22,13 @@ int writedecimal(int n)
 	{
 		s[0] = '0';
 		free(s);
-		return (write(stdout, s, 1));
+		return (write(1, s, 1));
 	}
 	if (n < 0)
 	{
 		n2 = -n;
 		s[0] = '-';
-		write(stdout, s, 1);
+		write(1, s, 1);
 		isNegative = 1;
 			free(s);
 		return ((isNegative + printInteger(n2)));
