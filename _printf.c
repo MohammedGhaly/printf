@@ -1,46 +1,42 @@
 #include "main.h"
-
 /**
  * _printf - prints the string passed
  * @format: string with place holders for different variables
  * Return: number of characters printed
  */
-int _printf(const char *format, ...)
+int _printf(const char * const format, ...)
 {
-	va_list printfArguments;
-	int i, isSpecifier, charCounter, type;
-	char *content = malloc(2);
+	matchFun m[] = {
+		{"%s", writeString}, {"%c", writeChar},
+		{"%%", writePercent},
+		{"%i", writeInt}, {"%d", writeDec}
+	};
 
-	va_start(printfArguments, format);
-	i = isSpecifier = charCounter = 0;
-	while (format[i])
+	va_list args;
+	int i = 0, j, len = 0;
+
+	va_start(args, format);
+	if (format == NULL || (format[0] == '%' && format[1] == '\0'))
+		return (-1);
+
+Here:
+	while (format[i] != '\0')
 	{
-		if (isSpecifier)
+		j = 4;
+		while (j >= 0)
 		{
-			type = detectType(format[i]);
-			if (type)
+			if (m[j].id[0] == format[i] && m[j].id[1] == format[i + 1])
 			{
-				if (type == 555)
-					charCounter += writeChar(va_arg(printfArguments, int));
-				else if (type == 666)
-					charCounter += writeString(va_arg(printfArguments, char *));
-				else
-					charCounter += writedecimal(va_arg(printfArguments, int));
+				len += m[j].f(args);
+				i = i + 2;
+				goto Here;
 			}
-			else
-				charCounter += writePercent(format[i]);
-			isSpecifier = 0;
-		} else if (format[i] == '%')
-			isSpecifier = 1;
-		else
-		{
-			content[0] = format[i];
-			write(1, content, 1);
-			charCounter++;
+			j--;
 		}
+		_putchar(format[i]);
+		len++;
 		i++;
 	}
-	va_end(printfArguments);
-	free(content);
-	return (charCounter);
+	va_end(args);
+	return (len);
 }
